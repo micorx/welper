@@ -1,16 +1,16 @@
 <?php
 namespace Micorx\Welper;
 
-include_once 'Handler/TestEngine.php';
-use Micorx\Welper\Internal\TestEngine;
+include_once 'Handler/TestHandler.php';
+use Micorx\Welper\Handler\TestHandler;
 
 class Test {
 
 	private $engine;
 
 	private function start_engine() {
-		if (! isset($this->engine) || ! $this->engine instanceof TestEngine) {
-			$this->engine = new TestEngine();
+		if (! isset($this->engine) || ! $this->engine instanceof TestHandler) {
+			$this->engine = new TestHandler();
 		}
 	}
 

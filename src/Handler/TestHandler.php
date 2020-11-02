@@ -1,7 +1,7 @@
 <?php
-namespace Micorx\Welper\Internal;
+namespace Micorx\Welper\Handler;
 
-class TestEngine {
+class TestHandler {
 
 	function e_test_youtube_video($link) {
 		$ch = curl_init('https://www.youtube.com/oembed?format=json&url=' . $link);

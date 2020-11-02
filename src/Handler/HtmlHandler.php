@@ -1,7 +1,7 @@
 <?php
-namespace Micorx\Welper\Internal;
+namespace Micorx\Welper\Handler;
 
-class HtmlEngine {
+class HtmlHandler {
 
 	private $document_root_;
 

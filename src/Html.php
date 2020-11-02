@@ -1,8 +1,8 @@
 <?php
 namespace Micorx\Welper;
 
-include_once 'Handler/HtmlEngine.php';
-use Micorx\Welper\Internal\HtmlEngine;
+include_once 'Handler/HtmlHandler.php';
+use Micorx\Welper\Handler\HtmlHandler;
 
 class Html {
 
@@ -13,8 +13,8 @@ class Html {
 	private $picture;
 
 	private function start_engine() {
-		if (! isset($this->engine) || ! $this->engine instanceof HtmlEngine) {
-			$this->engine = new HtmlEngine();
+		if (! isset($this->engine) || ! $this->engine instanceof HtmlHandler) {
+			$this->engine = new HtmlHandler();
 		}
 	}
 
