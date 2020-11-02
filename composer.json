@@ -1,24 +1,22 @@
 {
-    "name": "micorx/web-helpers",
-    "description": "This library helps you write your own code and manage operations in your backend",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Micorx",
-            "email": "dev@micorx.com"
-        }
-    ],
-	"autoload": {
-		"psr-4": {
-			"Micorx\\WebHelpers\\": "src/"
+	"name" : "micorx/welper",
+	"description" : "This library helps you write your own HTML code and manage operations in your backend",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Micorx",
+			"email" : "dev@micorx.com"
+		}
+	],
+	"autoload" : {
+		"psr-4" : {
+			"Micorx\\Welper\\" : "src/"
 		}
 	},
-    "minimum-stability": "dev",
-    "require": {
-		"php": ">=7.3.0"
+	"minimum-stability" : "dev",
+	"require" : {
+		"php" : ">=7.3.0"
 	},
-	"require-dev": {
-		"phpmailer/phpmailer": "~6.1"
+	"require-dev" : {
 	}
 }
