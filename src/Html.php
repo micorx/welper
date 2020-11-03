@@ -138,7 +138,7 @@ class Html {
 		 *        	 | • 'uri-type'		-->	'internal'									->	uri is an internal resource
 		 *        	 |					|->	'external' [default - if not defined]		->	uri is an external link
 		 *        
-		 *        	• 'l-js' 				->	[script]			->	all js files
+		 *        	• 's-js' 				->	[script]			->	all js files
 		 *        	
 		 *        	- Type: Array of Arrays
 		 *        	|- Element: Associative Array

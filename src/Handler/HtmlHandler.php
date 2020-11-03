@@ -101,7 +101,7 @@ class HtmlHandler {
 					case 'l-css':
 						$v = $this->head_validate_links($value);
 						break;
-					case 'l-js':
+					case 's-js':
 						$v = $this->head_validate_script($value);
 						break;
 				}
@@ -407,7 +407,7 @@ class HtmlHandler {
 							case 'l-css':
 								$html .= $this->head_compose_css($value);
 								break;
-							case 'l-js':
+							case 's-js':
 								$html .= $this->head_compose_js($value);
 								break;
 						}
