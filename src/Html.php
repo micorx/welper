@@ -12,6 +12,11 @@ class Html {
 
 	private $picture;
 
+	function __construct() {
+		$this->head = false;
+		$this->picture = false;
+	}
+
 	private function start_engine() {
 		if (! isset($this->engine) || ! $this->engine instanceof HtmlHandler) {
 			$this->engine = new HtmlHandler();
@@ -62,13 +67,14 @@ class Html {
 		 *          ------------
 		 *        	-- LOCALE --
 		 *          ------------
-		 *        	• 'm-og-locale' 		->	[meta - og]			->	all locale for this page
+		 *        	• 'm-og-locale' 		->	[meta - og]			->	locale of this page
 		 *        
-		 *        	- Type: Array of Arrays
-		 *        	|- Element: Associative Array
-		 *        	 |- Parameters:
-		 *        	 | • 'lang'			->	language and location abbreviation (ex. en_US)
-		 *        	 | • 'alternate'	->	true, if it is the language is alternate for this page
+		 *        	- Type: String
+		 *        
+		 *        	• 'm-og-locale-alt' 	->	[meta - og]			->	all locale alternate for this page
+		 *        
+		 *        	- Type: Array
+		 *        	 | each element is a language and location abbreviation (ex. en_US) for this page
 		 *        
 		 *                  
 		 *          ---------
@@ -100,7 +106,7 @@ class Html {
 		 *        	    
 		 *        	• 'l-alternate'			->	[link]				->	all alternate pages
 		 *        
-		 *        	- Type: Array of Arrays
+		 *        	- Type: Array
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
 		 *        	 | • 'uri'			-->	'/full/path/to/page'						->	internal resource, starts with '/'
@@ -114,7 +120,7 @@ class Html {
 		 *        
 		 *        	• 'l-favicon' 			->	[link]				->	all favicons
 		 *        
-		 *        	- Type: Array of Arrays
+		 *        	- Type: Array
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
 		 *        	 | • 'uri'			-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
@@ -129,7 +135,9 @@ class Html {
 		 *        
 		 *        	• 'l-css' 				->	[link]				->	all css files
 		 *        
-		 *        	- Type: Array of Arrays
+		 *        	- Type: Array
+		 *        	|- Element: String
+		 *        	 | '/full/path/to/file.css'		->	it MUST be an internal resource, starts with '/'
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
 		 *        	 | • 'uri'			-->	'/full/path/to/file.css'					->	internal resource, starts with '/'
@@ -140,10 +148,12 @@ class Html {
 		 *        
 		 *        	• 's-js' 				->	[script]			->	all js files
 		 *        	
-		 *        	- Type: Array of Arrays
+		 *        	- Type: Array
+		 *        	|- Element: String
+		 *        	 | '/full/path/to/file.css'		->	it MUST be an internal resource, starts with '/', no option allowed
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
-		 *        	 | • 'uri'			-->	'/full/path/to/file.css'					->	internal resource, starts with '/'
+		 *        	 | • 'uri'			-->	'/full/path/to/file.js'						->	internal resource, starts with '/'
 		 *         	 |					|->	'http://www.site.tld/path/to/file.js'		->	full url
 		 *           |
 		 *        	 | • 'uri-type'		-->	'internal'									->	uri is an internal resource
@@ -152,13 +162,39 @@ class Html {
 		 *        	 | • 'defer'		->	true if the script is defer
 		 *        	 | • 'async'		->	true if the script is async
 		 *        
+		 *        
+		 *          --------------
+		 *        	-- MULTIPLE --
+		 *          --------------
+		 *        	• 'all-title'			->	title of page
+		 *        	
+		 *        	- Applied to:
+		 *        	• 'title'
+		 *        	• 'm-title'
+		 *        	• 'm-og-title'
+		 *        	• 'm-tw-title'
+		 *        
+		 *        	• 'all-description' 	->	description
+		 *        	
+		 *        	- Applied to:
+		 *        	• 'm-description'
+		 *        	• 'm-og-description'
+		 *        	• 'm-tw-description'
+		 *        
+		 *        
+		 *        	• 'all-image' 			->	image
+		 *        	
+		 *        	- Applied to:
+		 *        	• 'm-og-image'
+		 *        	• 'm-tw-image'
+		 *        
 		 *        	
 		 * @return boolean true: if the values not contain errors
 		 *         boolean false: if the values contain errors
 		 *        
 		 */
 		$this->start_engine();
-		$tags = $this->engine->e_head_validate_tag($values);
+		$tags = $this->engine->e_head_validate_tag($this->head, $values);
 		if ($tags !== false) {
 			$this->head = $tags;
 			return $tags;

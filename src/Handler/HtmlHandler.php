@@ -54,11 +54,41 @@ class HtmlHandler {
 	/* **************************************
 	 **************** HEAD ******************
 	 **************************************** */
-	function e_head_validate_tag($values) {
+	function e_head_validate_tag($tags, $values) {
+		if (is_array($tags) && count($tags) > 0) {
+			$head = $tags;
+		} else {
+			$head = array();
+		}
 		if (is_array($values) && count($values) > 0) {
 			$head = array();
 			foreach ($values as $key => $value) {
+				$key_multiple = false;
 				switch ($key) {
+					case 'all-title':
+						$key_multiple = array(
+							'title',
+							'm-title',
+							'm-og-title',
+							'm-tw-title'
+						);
+						$v = $this->head_validate_string($value);
+						break;
+					case 'all-description':
+						$key_multiple = array(
+							'm-description',
+							'm-og-description',
+							'm-tw-description'
+						);
+						$v = $this->head_validate_string($value);
+						break;
+					case 'all-image':
+						$key_multiple = array(
+							'm-og-image',
+							'm-tw-image'
+						);
+						$v = $this->head_validate_string($value);
+						break;
 					case 'm-telephone-no':
 					case 'm-x-ua-compatible':
 						$v = $this->head_validate_boolean($value);
@@ -81,8 +111,11 @@ class HtmlHandler {
 					case 'm-fb-appid':
 						$v = $this->head_validate_string($value);
 						break;
-					case 'm-locale':
+					case 'm-og-locale':
 						$v = $this->head_validate_locale($value);
+						break;
+					case 'm-og-locale-alt':
+						$v = $this->head_validate_locale_alt($value);
 						break;
 					case 'm-canonical':
 					case 'm-og-url':
@@ -104,9 +137,18 @@ class HtmlHandler {
 					case 's-js':
 						$v = $this->head_validate_script($value);
 						break;
+					default:
+						$v = false;
+						break;
 				}
 				if ($v !== false) {
-					$head[$key] = $v;
+					if ($key_multiple !== false && is_array($key_multiple)) {
+						foreach ($key_multiple as $key_val) {
+							$head[$key_val] = $v;
+						}
+					} elseif (is_string($key) || is_numeric($key)) {
+						$head[$key] = $v;
+					}
 				}
 			}
 			if (is_array($head) && count($head) > 0) {
@@ -131,25 +173,17 @@ class HtmlHandler {
 	}
 
 	private function head_validate_locale($value) {
+		if (is_string($value)) {
+			return $value;
+		}
+		return false;
+	}
+
+	private function head_validate_locale_alt($value) {
 		if (is_array($value)) {
 			$list = array();
-			$actual_found = false;
 			foreach ($value as $element) {
-				if (isset($element['lang']) && is_string($element['lang']) && $element['lang'] !== '') {
-					if (isset($element['alternate']) && $element['alternate'] === true) {
-						array_push($list, array(
-							'lang' => $element['lang'],
-							'alternate' => true
-						));
-					} else {
-						if (! $actual_found) {
-							$actual_found == true;
-							array_unshift($list, array(
-								'lang' => $element['lang']
-							));
-						}
-					}
-				}
+				array_push($list, $element);
 			}
 			if (count($list) > 0) {
 				return $list;
@@ -387,7 +421,7 @@ class HtmlHandler {
 							case 'm-fb-appid':
 								$html .= $this->head_compose_string($key, $value);
 								break;
-							case 'm-locale':
+							case 'm-og-locale':
 								$html .= $this->head_compose_locale($value);
 								break;
 							case 'm-canonical':
