@@ -250,68 +250,72 @@ class HtmlHandler {
 	}
 
 	private function head_validate_link($value, $is_file = true) {
-		if (is_array($value)) {
-			$resource = array();
-			$uri_valid = false;
-			if (is_array($value) && isset($value['uri'])) {
-				$uri = trim($value['uri']);
-				if (isset($value['uri-type'])) {
-					switch ($value['uri-type']) {
-						case 'ext':
-							$resource['uri'] = $this->s_get_url_remote($uri);
+		$resource = array();
+		$uri_valid = false;
+		$uri = false;
+		$uri_type = false;
+		if (is_string($value) && $value !== '') {
+			$uri = $value;
+			$uri_type = 'int';
+		} elseif (is_array($value) && isset($value['uri']) && isset($value['uri-type'])) {
+			$uri = trim($value['uri']);
+			$uri_type = $value['uri-type'];
+		}
+		if ($uri !== false && $uri !== '' && $uri_type !== false && $uri_type !== '') {
+			switch ($uri_type) {
+				case 'ext':
+					$resource['uri'] = $this->s_get_url_remote($uri);
+					$uri_valid = true;
+					break;
+				case 'int':
+				default:
+					if ($is_file) {
+						if ($this->s_check_file($uri)) {
+							$resource['uri'] = $this->s_get_url_local($uri);
 							$uri_valid = true;
-							break;
-						case 'int':
-						default:
-							if ($is_file) {
-								if ($this->s_check_file($uri)) {
-									$resource['uri'] = $this->s_get_url_local($uri);
-									$uri_valid = true;
-								}
-							} else {
-								$resource['uri'] = $this->s_get_url_local($uri);
-								$uri_valid = true;
-							}
-							break;
+						}
+					} else {
+						$resource['uri'] = $this->s_get_url_local($uri);
+						$uri_valid = true;
 					}
-				}
+					break;
 			}
-			if ($uri_valid === false) {
-				return false;
-			}
-			if (isset($value['crossorigin'])) {
-				$resource['crossorigin'] = $value['crossorigin'];
-			}
-			if (isset($value['disabled']) && $value['disabled'] === true) {
-				$resource['disabled'] = $value['disabled'];
-			}
-			if (isset($value['hreflang'])) {
-				$resource['hreflang'] = $value['hreflang'];
-			}
-			if (isset($value['imagesizes'])) {
-				$resource['imagesizes'] = $value['imagesizes'];
-			}
-			if (isset($value['imagesrcset'])) {
-				$resource['imagesrcset'] = $value['imagesrcset'];
-			}
-			if (isset($value['media'])) {
-				$resource['media'] = $value['media'];
-			}
-			if (isset($value['rel'])) {
-				$resource['rel'] = $value['rel'];
-			}
-			if (isset($value['sizes'])) {
-				$resource['sizes'] = $value['sizes'];
-			}
-			if (isset($value['title'])) {
-				$resource['title'] = $value['title'];
-			}
-			if (isset($value['type'])) {
-				$resource['type'] = $value['type'];
-			}
-			if (count($resource) > 0) {
-				return $resource;
-			}
+		}
+		if ($uri_valid === false) {
+			return false;
+		}
+		if (isset($value['crossorigin'])) {
+			$resource['crossorigin'] = $value['crossorigin'];
+		}
+		if (isset($value['disabled']) && $value['disabled'] === true) {
+			$resource['disabled'] = $value['disabled'];
+		}
+		if (isset($value['hreflang'])) {
+			$resource['hreflang'] = $value['hreflang'];
+		}
+		if (isset($value['imagesizes'])) {
+			$resource['imagesizes'] = $value['imagesizes'];
+		}
+		if (isset($value['imagesrcset'])) {
+			$resource['imagesrcset'] = $value['imagesrcset'];
+		}
+		if (isset($value['media'])) {
+			$resource['media'] = $value['media'];
+		}
+		if (isset($value['rel'])) {
+			$resource['rel'] = $value['rel'];
+		}
+		if (isset($value['sizes'])) {
+			$resource['sizes'] = $value['sizes'];
+		}
+		if (isset($value['title'])) {
+			$resource['title'] = $value['title'];
+		}
+		if (isset($value['type'])) {
+			$resource['type'] = $value['type'];
+		}
+		if (count($resource) > 0) {
+			return $resource;
 		}
 		return false;
 	}

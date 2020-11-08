@@ -1,6 +1,5 @@
 <?php
-define('DOCUMENT_ROOT_CUSTOM',
-	'/Users/micbook/Documents/Progetti/Eclispe/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp2/htdocs/web-helpers');
-define('REMOTE_DOMAIN_CUSTOM', 'http://localhost:8289/web-helpers');
-
+define('DOCUMENT_ROOT_CUSTOM', $_SERVER['DOCUMENT_ROOT'] . '/welper');
+define('REMOTE_DOMAIN_CUSTOM',
+	strtolower(substr($_SERVER['SERVER_PROTOCOL'], 0, strpos($_SERVER['SERVER_PROTOCOL'], '/'))) . '://' . $_SERVER['HTTP_HOST'] . '/welper');
 ?>

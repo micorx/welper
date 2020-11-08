@@ -24,33 +24,33 @@ $tags = [
 	],
 	'm-canonical' => [
 		'uri' => '/test/Head.php',
-		'uri-type' => 'internal'
+		'uri-type' => 'int'
 	],
 	'm-og-url' => [
 		'uri' => '/test/Head.php',
-		'uri-type' => 'internal'
+		'uri-type' => 'int'
 	],
 	'l-alternate' => [
 		[
 			'hreflang' => 'it',
 			'uri' => '/path/to/page',
-			'uri-type' => 'internal',
+			'uri-type' => 'int',
 			'default' => true
 		],
 		[
 			'hreflang' => 'en',
 			'uri' => '/en/path/to/page',
-			'uri-type' => 'internal'
+			'uri-type' => 'int'
 		]
 	],
 	'm-og-image' => [
 		'uri' => '/test/resources/images/image_test-s.jpg',
-		'uri-type' => 'internal',
+		'uri-type' => 'int',
 		'alt' => 'Text'
 	],
 	'm-tw-image' => [
 		'uri' => '/test/resources/images/image_test-s.jpg',
-		'uri-type' => 'internal',
+		'uri-type' => 'int',
 		'alt' => 'Text'
 	],
 	'l-favicon' => [
@@ -58,35 +58,35 @@ $tags = [
 			'rel' => 'tapple-touch-icon',
 			'sizes' => '180x180',
 			'uri' => '/test/resources/images/image_test-s.jpg',
-			'uri-type' => 'internal'
+			'uri-type' => 'int'
 		],
 		[
 			'rel' => 'icon',
 			'type' => 'image/jpg',
 			'sizes' => '32x32',
 			'uri' => '/test/resources/images/image_test-s.jpg',
-			'uri-type' => 'internal'
+			'uri-type' => 'int'
 		],
 		[
 			'rel' => 'icon',
 			'type' => 'image/jpg',
 			'sizes' => '16x16',
 			'uri' => '/test/resources/images/image_test-s.jpg',
-			'uri-type' => 'internal'
+			'uri-type' => 'int'
 		]
 	],
 	'l-css' => [
 		'/test/resources/assets/css/test1.css',
 		[
 			'uri' => '/test/resources/assets/css/test2.css',
-			'uri-type' => 'internal'
+			'uri-type' => 'int'
 		]
 	],
-	'l-js' => [
+	's-js' => [
 		'/test/resources/assets/js/test1.js',
 		[
 			'uri' => '/test/resources/assets/js/test2.js',
-			'uri-type' => 'internal'
+			'uri-type' => 'int'
 		]
 	]
 ];
@@ -118,7 +118,7 @@ $order = [
 	'm-og-image',
 	'm-tw-image',
 	'l-css',
-	'l-js'
+	's-js'
 ];
 
 $html = new Html();

@@ -88,8 +88,8 @@ class Html {
 		 *        	| • 'uri'			-->	'/full/path/to/page'						->	internal resource, starts with '/'
 		 *        	|					|->	'http://www.site.tld/path/to/page'			->	full url
 		 *          |
-		 *        	| • 'uri-type'		-->	'internal'									->	uri is an internal resource
-		 *        	|					|->	'external' [default - if not defined]		->	uri is an external link
+		 *        	| • 'uri-type'		-->	'int'										->	uri is an internal resource
+		 *        	|					|->	'ext' [default - if not defined]			->	uri is an external link
 		 *        	
 		 *        	• 'm-og-image' 			->	[meta - og]			->	image, dimensions are calculated
 		 *        	• 'm-tw-image' 			->	[meta - twitter]	->	image
@@ -99,8 +99,8 @@ class Html {
 		 *        	| • 'uri'			-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
 		 *        	|					|->	'http://www.site.tld/path/to/image.ext'		->	full url
 		 *          |
-		 *        	| • 'uri-type'		-->	'internal'									->	uri is an internal resource
-		 *        	|					|->	'external' [default - if not defined]		->	uri is an external link
+		 *        	| • 'uri-type'		-->	'int'										->	uri is an internal resource
+		 *        	|					|->	'ext' [default - if not defined]			->	uri is an external link
 		 *          |
 		 *        	| • 'alt'			->	text alternate for img
 		 *        	    
@@ -112,8 +112,8 @@ class Html {
 		 *        	 | • 'uri'			-->	'/full/path/to/page'						->	internal resource, starts with '/'
 		 *         	 |					|->	'http://www.site.tld/path/to/page'			->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'internal'									->	uri is an internal resource
-		 *        	 |					|->	'external' [default - if not defined]		->	uri is an external link
+		 *        	 | • 'uri-type'		-->	'int'										->	uri is an internal resource
+		 *        	 |					|->	'ext' [default - if not defined]			->	uri is an external link
 		 *           |
 		 *        	 | • 'hreflang'		->	language abbreviation (ex. en)
 		 *        	 | • 'default'		->	true, if it is the language default for this page
@@ -126,8 +126,8 @@ class Html {
 		 *        	 | • 'uri'			-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
 		 *         	 |					|->	'http://www.site.tld/path/to/image.ext'		->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'internal'									->	uri is an internal resource
-		 *        	 |					|->	'external' [default - if not defined]		->	uri is an external link
+		 *        	 | • 'uri-type'		-->	'int'										->	uri is an internal resource
+		 *        	 |					|->	'ext' [default - if not defined]			->	uri is an external link
 		 *           |
 		 *        	 | • 'rel'			->	type of favicon
 		 *        	 | • 'type'			->	type of image
@@ -143,8 +143,8 @@ class Html {
 		 *        	 | • 'uri'			-->	'/full/path/to/file.css'					->	internal resource, starts with '/'
 		 *         	 |					|->	'http://www.site.tld/path/to/file.css'		->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'internal'									->	uri is an internal resource
-		 *        	 |					|->	'external' [default - if not defined]		->	uri is an external link
+		 *        	 | • 'uri-type'		-->	'int'										->	uri is an internal resource
+		 *        	 |					|->	'ext' [default - if not defined]			->	uri is an external link
 		 *        
 		 *        	• 's-js' 				->	[script]			->	all js files
 		 *        	
@@ -156,8 +156,8 @@ class Html {
 		 *        	 | • 'uri'			-->	'/full/path/to/file.js'						->	internal resource, starts with '/'
 		 *         	 |					|->	'http://www.site.tld/path/to/file.js'		->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'internal'									->	uri is an internal resource
-		 *        	 |					|->	'external' [default - if not defined]		->	uri is an external link
+		 *        	 | • 'uri-type'		-->	'int'										->	uri is an internal resource
+		 *        	 |					|->	'ext' [default - if not defined]			->	uri is an external link
 		 *           |
 		 *        	 | • 'defer'		->	true if the script is defer
 		 *        	 | • 'async'		->	true if the script is async
