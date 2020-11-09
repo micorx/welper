@@ -16,7 +16,8 @@ class HtmlHandler {
 		if (defined('REMOTE_DOMAIN_CUSTOM') && is_string(REMOTE_DOMAIN_CUSTOM) && REMOTE_DOMAIN_CUSTOM !== '') {
 			$this->remote_doamin_ = REMOTE_DOMAIN_CUSTOM;
 		} else {
-			$this->remote_doamin_ = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === 0 ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
+			$this->remote_doamin_ = (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://" .
+				$_SERVER['HTTP_HOST'];
 		}
 	}
 
