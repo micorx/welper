@@ -14,7 +14,7 @@ class Test {
 		}
 	}
 
-	function test_youtube_video($link) {
+	function test_youtube_video($link, $is_full_link = false) {
 		/**
 		 *
 		 * @param string $link
@@ -25,7 +25,7 @@ class Test {
 		 *
 		 */
 		$this->start_engine();
-		if ($this->engine->e_test_youtube_video($link) !== false) {
+		if ($this->engine->e_test_youtube_video($link, $is_full_link) !== false) {
 			return $link;
 		} else {
 			return false;

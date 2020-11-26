@@ -3,8 +3,13 @@ namespace Micorx\Welper\Handler;
 
 class TestHandler {
 
-	function e_test_youtube_video($link) {
-		$ch = curl_init('https://www.youtube.com/oembed?format=json&url=' . $link);
+	function e_test_youtube_video($link, $is_full_link) {
+		if ($is_full_link = true) {
+			$url = 'https://www.youtube.com/oembed?format=json&url=' . $link;
+		} else {
+			$url = 'https://www.youtube.com/oembed?format=json&url=www.youtube.com/watch?v=' . $link;
+		}
+		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 100);
