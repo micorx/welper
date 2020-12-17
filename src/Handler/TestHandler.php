@@ -1,9 +1,12 @@
 <?php
+
 namespace Micorx\Welper\Handler;
 
-class TestHandler {
+class TestHandler
+{
 
-	function e_test_youtube_video($link, $is_full_link) {
+	function e_test_youtube_video($link, $is_full_link)
+	{
 		if ($is_full_link === true) {
 			$url = 'https://www.youtube.com/oembed?format=json&url=' . $link;
 		} else {
@@ -22,5 +25,3 @@ class TestHandler {
 		}
 	}
 }
-
-?>

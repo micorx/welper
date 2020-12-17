@@ -2,6 +2,7 @@
 include_once 'config/config.php';
 
 include_once '../src/Html.php';
+
 use Micorx\Welper\Html;
 
 $picture_queries = array(
@@ -26,4 +27,3 @@ $image_alt = 'Alt image';
 $html1 = new Html();
 $html1->picture_set_options();
 echo $html1->picture_create($image, $image_alt, true);
-?>

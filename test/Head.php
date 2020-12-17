@@ -2,6 +2,7 @@
 include_once 'config/config.php';
 
 include_once '../src/Html.php';
+
 use Micorx\Welper\Html;
 
 $tags = [
@@ -129,14 +130,17 @@ $head_no = $html->head_create();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<?php echo $head;?>
+	<?php echo $head; ?>
 </head>
+
 <body>
-TEST
-<?php var_dump($tags);?>
-<?php var_dump($head_arr);?>
-<?php var_dump($head);?>
-<?php var_dump($head_no);?>
+	TEST
+	<?php var_dump($tags); ?>
+	<?php var_dump($head_arr); ?>
+	<?php var_dump($head); ?>
+	<?php var_dump($head_no); ?>
 </body>
+
 </html>

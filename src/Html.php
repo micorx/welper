@@ -1,10 +1,13 @@
 <?php
+
 namespace Micorx\Welper;
 
 include_once 'Handler/HtmlHandler.php';
+
 use Micorx\Welper\Handler\HtmlHandler;
 
-class Html {
+class Html
+{
 
 	private $engine;
 
@@ -12,13 +15,15 @@ class Html {
 
 	private $picture;
 
-	function __construct() {
+	function __construct()
+	{
 		$this->head = false;
 		$this->picture = false;
 	}
 
-	private function start_engine() {
-		if (! isset($this->engine) || ! $this->engine instanceof HtmlHandler) {
+	private function start_engine()
+	{
+		if (!isset($this->engine) || !$this->engine instanceof HtmlHandler) {
 			$this->engine = new HtmlHandler();
 		}
 	}
@@ -26,7 +31,8 @@ class Html {
 	/* **************************************
 	 **************** HEAD ******************
 	 **************************************** */
-	function head_set_tag($values) {
+	function head_set_tag($values)
+	{
 		/**
 		 *
 		 * @param array $values
@@ -203,7 +209,8 @@ class Html {
 		}
 	}
 
-	function head_create($order = false) {
+	function head_create($order = false)
+	{
 		/**
 		 *
 		 * @param array $order
@@ -215,7 +222,7 @@ class Html {
 		 *
 		 */
 		$this->start_engine();
-		if (! isset($this->head)) {
+		if (!isset($this->head)) {
 			return false;
 		}
 		$html = $this->engine->e_head_compose($this->head, $order);
@@ -229,7 +236,8 @@ class Html {
 	/* *****************************************
 	 ***************** PICTURE *****************
 	 ******************************************* */
-	function picture_set_options($media_queries = true, $lazy = false, $id = null, $classes = null, $properties = null) {
+	function picture_set_options($media_queries = true, $lazy = false, $id = null, $classes = null, $properties = null)
+	{
 		/**
 		 *
 		 * @param array $media_queries
@@ -286,7 +294,8 @@ class Html {
 		}
 	}
 
-	function picture_create($image_path, $image_alt = '', $image_external = false) {
+	function picture_create($image_path, $image_alt = '', $image_external = false)
+	{
 		/**
 		 *
 		 * @param string $image_path
@@ -320,7 +329,7 @@ class Html {
 		 *        
 		 */
 		$this->start_engine();
-		if (! isset($this->picture)) {
+		if (!isset($this->picture)) {
 			return false;
 		}
 		$html = $this->engine->e_picture_compose($this->picture, $image_path, $image_alt, $image_external);
@@ -331,4 +340,3 @@ class Html {
 		}
 	}
 }
-?>

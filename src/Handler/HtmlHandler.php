@@ -1,13 +1,16 @@
 <?php
+
 namespace Micorx\Welper\Handler;
 
-class HtmlHandler {
+class HtmlHandler
+{
 
 	private $document_root_;
 
 	private $remote_doamin_;
 
-	function __construct() {
+	function __construct()
+	{
 		if (defined('DOCUMENT_ROOT_CUSTOM') && is_string(DOCUMENT_ROOT_CUSTOM) && DOCUMENT_ROOT_CUSTOM !== '') {
 			$this->document_root_ = DOCUMENT_ROOT_CUSTOM;
 		} else {
@@ -16,19 +19,21 @@ class HtmlHandler {
 		if (defined('REMOTE_DOMAIN_CUSTOM') && is_string(REMOTE_DOMAIN_CUSTOM) && REMOTE_DOMAIN_CUSTOM !== '') {
 			$this->remote_doamin_ = REMOTE_DOMAIN_CUSTOM;
 		} else {
-			$this->remote_doamin_ = ((! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://") .
+			$this->remote_doamin_ = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://") .
 				$_SERVER['HTTP_HOST'];
 		}
 	}
 
-	private function s_get_url_remote($url) {
+	private function s_get_url_remote($url)
+	{
 		if (is_string($url) && $url !== '' && strpos($url, ' ') === false) {
 			return $url;
 		}
 		return false;
 	}
 
-	private function s_get_url_local($path) {
+	private function s_get_url_local($path)
+	{
 		if (is_string($path) && $path !== '' && strpos($path, ' ') === false) {
 			if (substr($path, 0, 1) == '/') {
 				return $this->remote_doamin_ . $path;
@@ -37,14 +42,16 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function s_get_path_local($path) {
+	private function s_get_path_local($path)
+	{
 		if ($this->s_check_file($path)) {
 			return $this->document_root_ . $path;
 		}
 		return false;
 	}
 
-	private function s_check_file($path) {
+	private function s_check_file($path)
+	{
 		if (is_file($this->document_root_ . $path)) {
 			return true;
 		}
@@ -54,7 +61,8 @@ class HtmlHandler {
 	/* **************************************
 	 **************** HEAD ******************
 	 **************************************** */
-	function e_head_validate_tag($tags, $values) {
+	function e_head_validate_tag($tags, $values)
+	{
 		if (is_array($tags) && count($tags) > 0) {
 			$head = $tags;
 		} else {
@@ -158,28 +166,32 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_boolean($value) {
+	private function head_validate_boolean($value)
+	{
 		if ($value === true) {
 			return true;
 		}
 		return false;
 	}
 
-	private function head_validate_string($value) {
+	private function head_validate_string($value)
+	{
 		if (is_string($value) && $value !== '') {
 			return str_replace('"', "'", trim($value));
 		}
 		return false;
 	}
 
-	private function head_validate_locale($value) {
+	private function head_validate_locale($value)
+	{
 		if (is_string($value)) {
 			return $value;
 		}
 		return false;
 	}
 
-	private function head_validate_locale_alt($value) {
+	private function head_validate_locale_alt($value)
+	{
 		if (is_array($value)) {
 			$list = array();
 			foreach ($value as $element) {
@@ -192,7 +204,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_url($value) {
+	private function head_validate_url($value)
+	{
 		if (is_array($value) && isset($value['uri'])) {
 			$uri = trim($value['uri']);
 			if (isset($value['uri-type'])) {
@@ -210,7 +223,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_links($value) {
+	private function head_validate_links($value)
+	{
 		if (is_array($value)) {
 			$resources = array();
 			foreach ($value as $element) {
@@ -226,7 +240,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_alternate($value) {
+	private function head_validate_alternate($value)
+	{
 		if (is_array($value)) {
 			$resources = array();
 			$default_setted = false;
@@ -235,7 +250,7 @@ class HtmlHandler {
 				if ($resource !== false) {
 					array_push($resources, $resource);
 				}
-				if (! $default_setted && isset($element['default']) && $element['default'] === true) {
+				if (!$default_setted && isset($element['default']) && $element['default'] === true) {
 					$resource_d = $resource;
 					$resource_d['hreflang'] = 'x-default';
 					$default_setted = true;
@@ -249,7 +264,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_link($value, $is_file = true) {
+	private function head_validate_link($value, $is_file = true)
+	{
 		$resource = array();
 		$uri_valid = false;
 		$uri = false;
@@ -320,7 +336,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_image($value) {
+	private function head_validate_image($value)
+	{
 		if (is_array($value)) {
 			if (isset($value['uri'])) {
 				$uri = trim($value['uri']);
@@ -351,7 +368,7 @@ class HtmlHandler {
 						}
 					}
 					if ($path_local !== false) {
-						list ($w, $h) = getimagesize($path_local);
+						list($w, $h) = getimagesize($path_local);
 						if (isset($w) && isset($h) && is_numeric($w) && is_numeric($h)) {
 							$image['width'] = $w;
 							$image['height'] = $h;
@@ -366,7 +383,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_validate_script($value) {
+	private function head_validate_script($value)
+	{
 		if (is_array($value)) {
 			$scripts = array();
 			foreach ($value as $element) {
@@ -391,7 +409,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	function e_head_compose($values, $order) {
+	function e_head_compose($values, $order)
+	{
 		if (is_array($values) && count($values) > 0) {
 			if ($order === false) {
 				$order = array_keys($values);
@@ -459,7 +478,8 @@ class HtmlHandler {
 		return false;
 	}
 
-	private function head_compose_boolean($key, $value) {
+	private function head_compose_boolean($key, $value)
+	{
 		$html = '';
 		if (is_string($key) && $key !== '' && $value === true) {
 			switch ($key) {
@@ -477,7 +497,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_string($key, $value) {
+	private function head_compose_string($key, $value)
+	{
 		$html = '';
 		if (is_string($key) && $key !== '' && is_string($value) && $value !== '') {
 			switch ($key) {
@@ -537,7 +558,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_locale($value) {
+	private function head_compose_locale($value)
+	{
 		$html_top = '';
 		$html = '';
 		if (is_array($value)) {
@@ -559,7 +581,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_uri($key, $value) {
+	private function head_compose_uri($key, $value)
+	{
 		$html = '';
 		if (is_string($key) && $key !== '') {
 			switch ($key) {
@@ -577,7 +600,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_alternate($value) {
+	private function head_compose_alternate($value)
+	{
 		$html = '';
 		if (is_array($value)) {
 			foreach ($value as $element) {
@@ -590,7 +614,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_image($key, $value) {
+	private function head_compose_image($key, $value)
+	{
 		$html = '';
 		if (is_string($key) && $key !== '') {
 			switch ($key) {
@@ -628,7 +653,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_favicon($value) {
+	private function head_compose_favicon($value)
+	{
 		$html = '';
 		if (is_array($value)) {
 			foreach ($value as $element) {
@@ -650,7 +676,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_css($value) {
+	private function head_compose_css($value)
+	{
 		$html = '';
 		if (is_array($value)) {
 			foreach ($value as $element) {
@@ -662,7 +689,8 @@ class HtmlHandler {
 		return $html;
 	}
 
-	private function head_compose_js($value) {
+	private function head_compose_js($value)
+	{
 		$html = '';
 		if (is_array($value)) {
 			foreach ($value as $element) {
@@ -684,7 +712,8 @@ class HtmlHandler {
 	/* *****************************************
 	 ***************** PICTURE *****************
 	 ******************************************* */
-	function e_picture_validate($media_queries, $lazy, $id, $classes, $props) {
+	function e_picture_validate($media_queries, $lazy, $id, $classes, $props)
+	{
 		$picture_options = array();
 		$error = false;
 		$format = array(
@@ -741,7 +770,7 @@ class HtmlHandler {
 						'default' => false
 					);
 					foreach ($query as $key => $value) {
-						if (! isset($query_t[$key])) {
+						if (!isset($query_t[$key])) {
 							if ($key == 'media') {
 								if (is_string($value)) {
 									$query_t[$key] = trim($value);
@@ -805,13 +834,14 @@ class HtmlHandler {
 		}
 	}
 
-	function e_picture_compose($picture_options, $image_path, $image_alt, $image_external) {
-		if (! is_string($image_path)) {
+	function e_picture_compose($picture_options, $image_path, $image_alt, $image_external)
+	{
+		if (!is_string($image_path)) {
 			return false;
 		} else {
 			$path = $image_path;
 		}
-		if (! is_string($image_alt)) {
+		if (!is_string($image_alt)) {
 			return false;
 		} else {
 			$alt = $image_alt;
@@ -853,7 +883,7 @@ class HtmlHandler {
 			$txt_alt .= ' alt="' . $alt . '"';
 		}
 		$queries_def = false;
-		if (! is_array($picture_options['media_queries'])) {
+		if (!is_array($picture_options['media_queries'])) {
 			return false;
 		}
 		foreach ($picture_options['media_queries'] as $query) {
@@ -911,4 +941,3 @@ class HtmlHandler {
 		return $txt;
 	}
 }
-?>
