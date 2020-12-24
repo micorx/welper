@@ -15,6 +15,7 @@ class TestHandler
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 500);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 		curl_exec($ch);
 		$returned_status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
