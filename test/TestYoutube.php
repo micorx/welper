@@ -7,8 +7,6 @@ use Micorx\Welper\Test;
 $link = 'https://www.youtube.com/watch?v=jNQXAC9IVRw';
 $tester = new Test();
 $video = $tester->test_youtube_video($link);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
