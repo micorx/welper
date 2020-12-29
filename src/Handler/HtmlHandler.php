@@ -445,6 +445,7 @@ class HtmlHandler
 								$html .= $this->head_compose_string($key, $value);
 								break;
 							case 'm-og-locale':
+							case 'm-og-locale-alt':
 								$html .= $this->head_compose_locale($value);
 								break;
 							case 'm-canonical':
@@ -560,23 +561,17 @@ class HtmlHandler
 
 	private function head_compose_locale($value)
 	{
-		$html_top = '';
 		$html = '';
 		if (is_array($value)) {
 			foreach ($value as $element) {
-				if (isset($element['alternate']) && $element['alternate'] === true) {
-					$html .= '<meta property="og:locale:alternate" content="' . $element['lang'] . '" />';
+				if (is_string($element)) {
+					$html .= '<meta property="og:locale:alternate" content="' . $element . '" />';
 					$html .= PHP_EOL;
-				} else {
-					if ($html_top === '') {
-						$html_top .= '<meta property="og:locale" content="' . $element['lang'] . '" />';
-						$html_top .= PHP_EOL;
-					}
 				}
 			}
-		}
-		if ($html !== '') {
-			$html = $html_top . $html;
+		} elseif (is_string($value)) {
+			$html .= '<meta property="og:locale" content="' . $value . '" />';
+			$html .= PHP_EOL;
 		}
 		return $html;
 	}
