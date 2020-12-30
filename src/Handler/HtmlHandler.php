@@ -95,7 +95,7 @@ class HtmlHandler
 							'm-og-image',
 							'm-tw-image'
 						);
-						$v = $this->head_validate_string($value);
+						$v = $this->head_validate_image($value);
 						break;
 					case 'm-telephone-no':
 					case 'm-x-ua-compatible':
