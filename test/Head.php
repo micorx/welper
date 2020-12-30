@@ -19,39 +19,39 @@ $tags = [
 	'm-tw-card' => 'twitter_card',
 	'm-tw-site' => 'twitterusername',
 	'm-fb-appid' => '493039404',
-	'm-og-locale' => 'it_IT',
+	'm-og-locale' => 'en_UK',
 	'm-og-locale-alt' => [
 		'en_US'
 	],
 	'm-canonical' => [
 		'uri' => '/test/Head.php',
-		'uri-type' => 'int'
+		'uri-type' => 'rel'
 	],
 	'm-og-url' => [
 		'uri' => '/test/Head.php',
-		'uri-type' => 'int'
+		'uri-type' => 'rel'
 	],
 	'l-alternate' => [
 		[
 			'hreflang' => 'it',
 			'uri' => '/path/to/page',
-			'uri-type' => 'int',
+			'uri-type' => 'rel',
 			'default' => true
 		],
 		[
 			'hreflang' => 'en',
 			'uri' => '/en/path/to/page',
-			'uri-type' => 'int'
+			'uri-type' => 'rel'
 		]
 	],
 	'm-og-image' => [
 		'uri' => '/test/resources/images/image_test-s.jpg',
-		'uri-type' => 'int',
+		'uri-type' => 'rel',
 		'alt' => 'Text'
 	],
 	'm-tw-image' => [
 		'uri' => '/test/resources/images/image_test-s.jpg',
-		'uri-type' => 'int',
+		'uri-type' => 'rel',
 		'alt' => 'Text'
 	],
 	'l-favicon' => [
@@ -59,35 +59,42 @@ $tags = [
 			'rel' => 'tapple-touch-icon',
 			'sizes' => '180x180',
 			'uri' => '/test/resources/images/image_test-s.jpg',
-			'uri-type' => 'int'
+			'uri-type' => 'rel'
 		],
 		[
 			'rel' => 'icon',
 			'type' => 'image/jpg',
 			'sizes' => '32x32',
 			'uri' => '/test/resources/images/image_test-s.jpg',
-			'uri-type' => 'int'
+			'uri-type' => 'rel'
 		],
 		[
 			'rel' => 'icon',
 			'type' => 'image/jpg',
 			'sizes' => '16x16',
 			'uri' => '/test/resources/images/image_test-s.jpg',
-			'uri-type' => 'int'
+			'uri-type' => 'rel'
 		]
 	],
 	'l-css' => [
-		'/test/resources/assets/css/test1.css',
+		[
+			'uri' => '/test/resources/assets/css/test1.css',
+			'uri-type' => 'rel'
+		],
 		[
 			'uri' => '/test/resources/assets/css/test2.css',
-			'uri-type' => 'int'
+			'uri-type' => 'rel'
 		]
 	],
 	's-js' => [
-		'/test/resources/assets/js/test1.js',
+		[
+			'uri' => '/test/resources/assets/js/test1.js',
+			'uri-type' => 'rel'
+		],
 		[
 			'uri' => '/test/resources/assets/js/test2.js',
-			'uri-type' => 'int'
+			'uri-type' => 'rel',
+			'defer' => true
 		]
 	]
 ];
