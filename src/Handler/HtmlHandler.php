@@ -208,16 +208,18 @@ class HtmlHandler
 	{
 		if (is_array($value) && isset($value['uri'])) {
 			$uri = trim($value['uri']);
-			if (isset($value['uri-type'])) {
-				switch ($value['uri-type']) {
-					case 'ext':
-						return $this->s_get_url_remote($uri);
-						break;
-					case 'int':
-					default:
-						return $this->s_get_url_local($uri);
-						break;
-				}
+			$uri_type = 'abs';
+			if (isset($value['uri-type']) && is_string($value['uri-type'])) {
+				$uri_type = $value['uri-type'];
+			}
+			switch ($uri_type) {
+				case 'rel':
+					return $this->s_get_url_local($uri);
+					break;
+				case 'abs':
+				default:
+					return $this->s_get_url_remote($uri);
+					break;
 			}
 		}
 		return false;
@@ -245,6 +247,7 @@ class HtmlHandler
 		if (is_array($value)) {
 			$resources = array();
 			$default_setted = false;
+			$resource_d = false;
 			foreach ($value as $element) {
 				$resource = $this->head_validate_link($element, false);
 				if ($resource !== false) {
@@ -256,7 +259,9 @@ class HtmlHandler
 					$default_setted = true;
 				}
 			}
-			array_push($resources, $resource_d);
+			if ($resource_d !== false) {
+				array_push($resources, $resource_d);
+			}
 			if (count($resources) > 0) {
 				return $resources;
 			}
@@ -269,22 +274,18 @@ class HtmlHandler
 		$resource = array();
 		$uri_valid = false;
 		$uri = false;
-		$uri_type = false;
+		$uri_type = 'abs';
 		if (is_string($value) && $value !== '') {
 			$uri = $value;
-			$uri_type = 'int';
-		} elseif (is_array($value) && isset($value['uri']) && isset($value['uri-type'])) {
+		} elseif (is_array($value) && isset($value['uri'])) {
 			$uri = trim($value['uri']);
-			$uri_type = $value['uri-type'];
+			if (isset($value['uri-type'])) {
+				$uri_type = $value['uri-type'];
+			}
 		}
 		if ($uri !== false && $uri !== '' && $uri_type !== false && $uri_type !== '') {
 			switch ($uri_type) {
-				case 'ext':
-					$resource['uri'] = $this->s_get_url_remote($uri);
-					$uri_valid = true;
-					break;
-				case 'int':
-				default:
+				case 'rel':
 					if ($is_file) {
 						if ($this->s_check_file($uri)) {
 							$resource['uri'] = $this->s_get_url_local($uri);
@@ -294,6 +295,11 @@ class HtmlHandler
 						$resource['uri'] = $this->s_get_url_local($uri);
 						$uri_valid = true;
 					}
+					break;
+				case 'abs':
+				default:
+					$resource['uri'] = $this->s_get_url_remote($uri);
+					$uri_valid = true;
 					break;
 			}
 		}
@@ -345,15 +351,15 @@ class HtmlHandler
 				$path_local = false;
 				if (isset($value['uri-type'])) {
 					switch ($value['uri-type']) {
-						case 'ext':
-							$path_remote = $this->s_get_url_remote($uri);
-							break;
-						case 'int':
-						default:
+						case 'rel':
 							if ($this->s_check_file($uri)) {
 								$path_remote = $this->s_get_url_local($uri);
 								$path_local = $this->s_get_path_local($uri);
 							}
+							break;
+						case 'abs':
+						default:
+							$path_remote = $this->s_get_url_remote($uri);
 							break;
 					}
 				}
