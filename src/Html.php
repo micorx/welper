@@ -286,14 +286,147 @@ class Html
 		 *         false: if data contains some errors
 		 *        
 		 */
-		$this->start_engine();
-		$options = $this->engine->e_picture_validate($media_queries, $lazy, $id, $classes, $properties);
-		if ($options !== false) {
-			$this->picture = $options;
-			return true;
-		} else {
+
+		if ($this->picture_set_queries($media_queries) == false) {
 			return false;
 		}
+		if ($this->picture_set_lazy($lazy) == false) {
+			return false;
+		}
+		if ($this->picture_set_id($id) == false) {
+			return false;
+		}
+		if ($this->picture_set_classes($classes) == false) {
+			return false;
+		}
+		if ($this->picture_set_properties($properties) == false) {
+			return false;
+		}
+		return true;
+	}
+
+	function picture_set_queries($media_queries)
+	{
+		/**
+		 *
+		 * @param array $media_queries
+		 *        	Array of media queries
+		 *        	
+		 *        
+		 *          -----------
+		 *        	-- FIXED --
+		 *          -----------
+		 *        	• 'default' 			->	[default: false]	->	true if this is the default image
+		 *        
+		 *        	- Type: Boolean
+		 *        
+		 *        
+		 *          ------------
+		 *        	-- STRING --
+		 *          ------------
+		 *        	• 'media' 				->	[default: '']		->	media query
+		 *        	• 'separator'			->	[default: '-']		->	character between the file name and suffix
+		 *        	• 'suffix' 				->	[default: '']		->	suffix to image with respective query
+		 *        	• 'format' 				->	[default: jpg]		->	file format -  allowed: jpg, png, svg, webp
+		 *        
+		 *        	- Type: String
+		 *        
+		 * @return true: if the are no error on validation
+		 *         false: if data contains some errors
+		 *        
+		 */
+		$this->start_engine();
+		$data = $this->engine->e_picture_validate_queries($media_queries);
+		if ($data !== false) {
+			$this->picture['media_queries'] = $data;
+			return true;
+		}
+		return false;
+	}
+
+	function picture_set_lazy($lazy)
+	{
+		/**
+		 *
+		 * @param boolean $lazy
+		 *        	If true, helper add settings to lazy loading images
+		 *        	Class "image-lazy-loading"
+		 *        	
+		 * @return true: if the are no error on validation
+		 *         false: if data contains some errors
+		 *        
+		 */
+		$this->start_engine();
+		$data = $this->engine->e_picture_validate_lazy($lazy);
+		if ($data !== false) {
+			$this->picture['lazy'] = $data;
+			return true;
+		}
+		return false;
+	}
+
+	function picture_set_id($id)
+	{
+		/**
+		 *
+		 * @param string $id
+		 *        	Name of id
+		 *        	No spaces admitted
+		 *        	
+		 * @return true: if the are no error on validation
+		 *         false: if data contains some errors
+		 *        
+		 */
+		$this->start_engine();
+		$data = $this->engine->e_picture_validate_id($id);
+		if ($data !== false) {
+			$this->picture['id'] = $data;
+			return true;
+		}
+		return false;
+	}
+
+	function picture_set_classes($classes)
+	{
+		/**
+		 *	
+		 * @param string $classes:
+		 *        	Names classes separated by single space
+		 *        	
+		 * @return true: if the are no error on validation
+		 *         false: if data contains some errors
+		 *        
+		 */
+		$this->start_engine();
+		$data = $this->engine->e_picture_validate_classes($classes);
+		if ($data !== false) {
+			$this->picture['classes'] = $data;
+			return true;
+		}
+		return false;
+	}
+
+	function picture_set_properties($properties)
+	{
+		/**
+		 *
+		 * @param string $properties
+		 *        	Other properies to add to picture tag
+		 *        
+		 *        	!! IMPORTANT !!
+		 *        	No security check on this parameter
+		 *        	
+		 * @return true: if the are no error on validation
+		 *         false: if data contains some errors
+		 *        
+		 */
+		$this->start_engine();
+		$data = $this->engine->e_picture_validate_properties($properties);
+		if ($data !== false) {
+			$this->picture['props'] = $data;
+			return true;
+		}
+		return false;
 	}
 
 	function picture_create($image_path, $image_alt = '', $image_external = false)

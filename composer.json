@@ -1,6 +1,6 @@
 {
 	"name" : "micorx/welper",
-	"description" : "This library helps you write your own HTML code and manage operations in your backend",
+	"description" : "This library helps you write your own HTML code and manage operations in your back-end",
 	"type" : "library",
 	"license" : "MIT",
 	"authors" : [{

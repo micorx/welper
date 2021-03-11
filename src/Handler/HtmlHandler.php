@@ -11,17 +11,25 @@ class HtmlHandler
 
 	function __construct()
 	{
-		if (defined('DOCUMENT_ROOT_CUSTOM') && is_string(DOCUMENT_ROOT_CUSTOM) && DOCUMENT_ROOT_CUSTOM !== '') {
-			$this->document_root_ = DOCUMENT_ROOT_CUSTOM;
+		$document_ = $_SERVER['DOCUMENT_ROOT'];
+		$remote_ = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+		if (!defined('DOCUMENT_ROOT_CUSTOM')) {
+			define('DOCUMENT_ROOT_CUSTOM', $document_);
 		} else {
-			$this->document_root_ = $_SERVER['DOCUMENT_ROOT'];
+			if (!is_string(DOCUMENT_ROOT_CUSTOM) || DOCUMENT_ROOT_CUSTOM == '') {
+				define('DOCUMENT_ROOT_CUSTOM', $document_);
+			}
 		}
-		if (defined('REMOTE_DOMAIN_CUSTOM') && is_string(REMOTE_DOMAIN_CUSTOM) && REMOTE_DOMAIN_CUSTOM !== '') {
-			$this->remote_doamin_ = REMOTE_DOMAIN_CUSTOM;
+		$this->document_root_ = DOCUMENT_ROOT_CUSTOM;
+
+		if (!defined('REMOTE_DOMAIN_CUSTOM')) {
+			define('REMOTE_DOMAIN_CUSTOM', $remote_);
 		} else {
-			$this->remote_doamin_ = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://") .
-				$_SERVER['HTTP_HOST'];
+			if (!is_string(REMOTE_DOMAIN_CUSTOM) || REMOTE_DOMAIN_CUSTOM == '') {
+				define('REMOTE_DOMAIN_CUSTOM', $remote_);
+			}
 		}
+		$this->remote_doamin_ = REMOTE_DOMAIN_CUSTOM;
 	}
 
 	private function s_get_url_remote($url)
@@ -713,9 +721,9 @@ class HtmlHandler
 	/* *****************************************
 	 ***************** PICTURE *****************
 	 ******************************************* */
-	function e_picture_validate($media_queries, $lazy, $id, $classes, $props)
+
+	function e_picture_validate_queries($data)
 	{
-		$picture_options = array();
 		$error = false;
 		$format = array(
 			'jpg',
@@ -723,8 +731,8 @@ class HtmlHandler
 			'svg',
 			'webp'
 		);
-		if ($media_queries === true) {
-			$picture_options['media_queries'] = array(
+		if ($data === true) {
+			return array(
 				array(
 					'media' => '',
 					'suffix' => '',
@@ -733,37 +741,11 @@ class HtmlHandler
 					'default' => true
 				)
 			);
-			return $picture_options;
 		}
-		if ($id !== null) {
-			if (is_string($id) && strpos(trim($id), ' ') == false) {
-				$picture_options['id'] = trim($id);
-			} else {
-				$error = $error || true;
-			}
-		}
-		if ($classes !== null) {
-			if (is_string($classes)) {
-				$picture_options['classes'] = trim($classes);
-			} else {
-				$error = $error || true;
-			}
-		}
-		if ($props !== null) {
-			if (is_string($props)) {
-				$picture_options['props'] = trim($props);
-			} else {
-				$error = $error || true;
-			}
-		}
-		if ($lazy === true || $lazy === false) {
-			$picture_options['lazy'] = $lazy;
-		} else {
-			$error = $error || true;
-		}
+
 		$media_queries_t = array();
-		if (is_array($media_queries) && count($media_queries) > 0) {
-			foreach ($media_queries as $query) {
+		if (is_array($data) && count($data) > 0) {
+			foreach ($data as $query) {
 				if (is_array($query) && count($query) > 0 && $error !== true) {
 					$query_t = array(
 						'separator' => '-',
@@ -824,15 +806,47 @@ class HtmlHandler
 					break;
 				}
 			}
-			$picture_options['media_queries'] = $media_queries_t;
-		} else {
-			$error = $error || true;
+			return $media_queries_t;
 		}
-		if ($error === true) {
-			return false;
-		} else {
-			return $picture_options;
+		return false;
+	}
+
+	function e_picture_validate_lazy($data)
+	{
+		if ($data === true || $data === false) {
+			return $data;
 		}
+		return false;
+	}
+
+	function e_picture_validate_id($data)
+	{
+		if ($data !== null) {
+			if (is_string($data) && strpos(trim($data), ' ') == false) {
+				return trim($data);
+			}
+		}
+		return false;
+	}
+
+	function e_picture_validate_classes($data)
+	{
+		if ($data !== null) {
+			if (is_string($data)) {
+				return trim($data);
+			}
+		}
+		return false;
+	}
+
+	function e_picture_validate_properties($data)
+	{
+		if ($data !== null) {
+			if (is_string($data)) {
+				return trim($data);
+			}
+		}
+		return false;
 	}
 
 	function e_picture_compose($picture_options, $image_path, $image_alt, $image_external)
@@ -884,7 +898,7 @@ class HtmlHandler
 			$txt_alt .= ' alt="' . $alt . '"';
 		}
 		$queries_def = false;
-		if (!is_array($picture_options['media_queries'])) {
+		if (!isset($picture_options['media_queries']) || !is_array($picture_options['media_queries'])) {
 			return false;
 		}
 		foreach ($picture_options['media_queries'] as $query) {
