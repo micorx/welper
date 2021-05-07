@@ -413,6 +413,12 @@ class HtmlHandler
 					if (isset($element['async']) && $element['async'] === true) {
 						$script['async'] = $element['async'];
 					}
+					if (isset($element['integrity']) && is_string($element['integrity'])) {
+						$script['integrity'] = $element['integrity'];
+					}
+					if (isset($element['crossorigin']) && is_string($element['crossorigin'])) {
+						$script['crossorigin'] = $element['crossorigin'];
+					}
 					array_push($scripts, $script);
 				}
 			}
@@ -711,7 +717,15 @@ class HtmlHandler
 					if (isset($element['async']) && $element['async'] === true) {
 						$data .= ' async';
 					}
-					$html .= '<script' . $data . ' src="' . $element['uri'] . '"></script>' . PHP_EOL;
+					if (isset($element['integrity']) && is_string($element['integrity'])) {
+						$data .= ' integrity="' . $element['integrity'] . '"';
+					}
+					if (isset($element['crossorigin']) && is_string($element['crossorigin'])) {
+						$data .= ' crossorigin="' . $element['crossorigin'] . '"';
+					}
+					if (isset($element['uri']) && is_string($element['uri'])) {
+						$html .= '<script src="' . $element['uri'] . '"' . $data . '></script>' . PHP_EOL;
+					}
 				}
 			}
 		}
