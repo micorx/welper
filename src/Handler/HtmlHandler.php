@@ -830,7 +830,7 @@ class HtmlHandler
 		if ($data === true || $data === false) {
 			return $data;
 		}
-		return false;
+		return -2;
 	}
 
 	function e_picture_validate_id($data)

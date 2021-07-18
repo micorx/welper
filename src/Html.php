@@ -360,7 +360,7 @@ class Html
 		 */
 		$this->start_engine();
 		$data = $this->engine->e_picture_validate_lazy($lazy);
-		if ($data !== false) {
+		if ($data !== -2) {
 			$this->picture['lazy'] = $data;
 			return true;
 		}
