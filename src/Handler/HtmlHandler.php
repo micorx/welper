@@ -317,6 +317,12 @@ class HtmlHandler
 		if (isset($value['crossorigin'])) {
 			$resource['crossorigin'] = $value['crossorigin'];
 		}
+		if (isset($value['integrity'])) {
+			$resource['integrity'] = $value['integrity'];
+		}
+		if (isset($value['referrerpolicy'])) {
+			$resource['referrerpolicy'] = $value['referrerpolicy'];
+		}
 		if (isset($value['disabled']) && $value['disabled'] === true) {
 			$resource['disabled'] = $value['disabled'];
 		}
@@ -418,6 +424,9 @@ class HtmlHandler
 					}
 					if (isset($element['crossorigin']) && is_string($element['crossorigin'])) {
 						$script['crossorigin'] = $element['crossorigin'];
+					}
+					if (isset($element['referrerpolicy']) && is_string($element['referrerpolicy'])) {
+						$script['referrerpolicy'] = $element['referrerpolicy'];
 					}
 					array_push($scripts, $script);
 				}
@@ -722,6 +731,9 @@ class HtmlHandler
 					}
 					if (isset($element['crossorigin']) && is_string($element['crossorigin'])) {
 						$data .= ' crossorigin="' . $element['crossorigin'] . '"';
+					}
+					if (isset($element['referrerpolicy']) && is_string($element['referrerpolicy'])) {
+						$data .= ' referrerpolicy="' . $element['referrerpolicy'] . '"';
 					}
 					if (isset($element['uri']) && is_string($element['uri'])) {
 						$html .= '<script src="' . $element['uri'] . '"' . $data . '></script>' . PHP_EOL;

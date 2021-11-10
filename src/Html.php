@@ -91,54 +91,54 @@ class Html
 		 *        
 		 *        	- Type: Associative Array
 		 *        	|- Parameters:
-		 *        	| • 'uri'			-->	'/full/path/to/page'						->	internal resource, starts with '/'
-		 *        	|					|->	'http://www.site.tld/path/to/page'			->	full url
+		 *        	| • 'uri'				-->	'/full/path/to/page'						->	internal resource, starts with '/'
+		 *        	|						|->	'http://www.site.tld/path/to/page'			->	full url
 		 *          |
-		 *        	| • 'uri-type'		-->	'rel'										->	uri is a relative resource
-		 *        	|					|->	'abs' [default - if not defined]			->	uri is an absolute link
+		 *        	| • 'uri-type'			-->	'rel'										->	uri is a relative resource
+		 *        	|						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *        	
 		 *        	• 'm-og-image' 			->	[meta - og]			->	image, dimensions are calculated
 		 *        	• 'm-tw-image' 			->	[meta - twitter]	->	image
 		 *        
 		 *        	- Type: Associative Array
 		 *        	|- Parameters:
-		 *        	| • 'uri'			-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
-		 *        	|					|->	'http://www.site.tld/path/to/image.ext'		->	full url
+		 *        	| • 'uri'				-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
+		 *        	|						|->	'http://www.site.tld/path/to/image.ext'		->	full url
 		 *          |
-		 *        	| • 'uri-type'		-->	'rel'										->	uri is a relative resource
-		 *        	|					|->	'abs' [default - if not defined]			->	uri is an absolute link
+		 *        	| • 'uri-type'			-->	'rel'										->	uri is a relative resource
+		 *        	|						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *          |
-		 *        	| • 'alt'			->	text alternate for img
+		 *        	| • 'alt'				->	text alternate for img
 		 *        	    
 		 *        	• 'l-alternate'			->	[link]				->	all alternate pages
 		 *        
 		 *        	- Type: Array
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
-		 *        	 | • 'uri'			-->	'/full/path/to/page'						->	internal resource, starts with '/'
-		 *         	 |					|->	'http://www.site.tld/path/to/page'			->	full url
+		 *        	 | • 'uri'				-->	'/full/path/to/page'						->	internal resource, starts with '/'
+		 *         	 |						|->	'http://www.site.tld/path/to/page'			->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'rel'										->	uri is a relative resource
-		 *        	 |					|->	'abs' [default - if not defined]			->	uri is an absolute link
+		 *        	 | • 'uri-type'			-->	'rel'										->	uri is a relative resource
+		 *        	 |						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *           |
-		 *        	 | • 'hreflang'		->	language abbreviation (ex. en)
+		 *        	 | • 'hreflang'			->	language abbreviation (ex. en)
 		 *           |
-		 *        	 | • 'default'		->	true										->	language default for this page
-		 *        	 |					|->	false [default - if not defined]			->	alternate language
+		 *        	 | • 'default'			->	true										->	language default for this page
+		 *        	 |						|->	false [default - if not defined]			->	alternate language
 		 *        
 		 *        	• 'l-favicon' 			->	[link]				->	all favicons
 		 *        
 		 *        	- Type: Array
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
-		 *        	 | • 'uri'			-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
-		 *         	 |					|->	'http://www.site.tld/path/to/image.ext'		->	full url
+		 *        	 | • 'uri'				-->	'/full/path/to/image.extension'				->	internal resource, starts with '/'
+		 *         	 |						|->	'http://www.site.tld/path/to/image.ext'		->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'rel'										->	uri is a relative resource
-		 *        	 |					|->	'abs' [default - if not defined]			->	uri is an absolute link
+		 *        	 | • 'uri-type'			-->	'rel'										->	uri is a relative resource
+		 *        	 |						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *           |
-		 *        	 | • 'rel'			->	type of favicon
-		 *        	 | • 'type'			->	type of image
+		 *        	 | • 'rel'				->	type of favicon
+		 *        	 | • 'type'				->	type of image
 		 *        	 | • 'sizes'			->	dimension of image
 		 *        
 		 *        	• 'l-css' 				->	[link]				->	all css files
@@ -148,29 +148,30 @@ class Html
 		 *        	 | '/full/path/to/file.css'		->	it MUST be an internal resource, starts with '/'
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
-		 *        	 | • 'uri'			-->	'/full/path/to/file.css'					->	internal resource, starts with '/'
-		 *         	 |					|->	'http://www.site.tld/path/to/file.css'		->	full url
+		 *        	 | • 'uri'				-->	'/full/path/to/file.css'					->	internal resource, starts with '/'
+		 *         	 |						|->	'http://www.site.tld/path/to/file.css'		->	full url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'rel'										->	uri is a relative resource
-		 *        	 |					|->	'abs' [default - if not defined]			->	uri is an absolute link
+		 *        	 | • 'uri-type'			-->	'rel'										->	uri is a relative resource
+		 *        	 |						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *        
 		 *        	• 's-js' 				->	[script]			->	all js files
 		 *        	
 		 *        	- Type: Array
 		 *        	|- Element: String
-		 *        	 | '/full/path/to/file.css'		->	it MUST be an internal resource, starts with '/', no option allowed
+		 *        	 | '/full/path/to/file.js'		->	it MUST be an internal resource, starts with '/', no option allowed
 		 *        	|- Element: Associative Array
 		 *        	 |- Parameters:
-		 *        	 | • 'uri'			-->	'/full/path/to/file.js'						->	relative resource, starts with '/'
-		 *         	 |					|->	'http://www.site.tld/path/to/file.js'		->	absolute url
+		 *        	 | • 'uri'				-->	'/full/path/to/file.js'						->	relative resource, starts with '/'
+		 *         	 |						|->	'http://www.site.tld/path/to/file.js'		->	absolute url
 		 *           |
-		 *        	 | • 'uri-type'		-->	'rel'										->	uri is a relative resource
-		 *        	 |					|->	'abs' [default - if not defined]			->	uri is an absolute link
+		 *        	 | • 'uri-type'			-->	'rel'										->	uri is a relative resource
+		 *        	 |						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *           |
-		 *        	 | • 'defer'		->	true if the script is defer
-		 *        	 | • 'async'		->	true if the script is async
-		 * 		 	 | • 'integrity'	->	string that report verification of integrity of file
-		 *        	 | • 'crossorigin'	->	sting that report origin of script
+		 *        	 | • 'defer'			->	true if the script is defer
+		 *        	 | • 'async'			->	true if the script is async
+		 * 		 	 | • 'integrity'		->	string that report verification of integrity of file
+		 *        	 | • 'crossorigin'		->	sting that report origin of script
+		 *        	 | • 'referrerpolicy'	->	sting that report origin of script
 		 *        
 		 *        
 		 *          --------------
