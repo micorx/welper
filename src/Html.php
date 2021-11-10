@@ -170,8 +170,8 @@ class Html
 		 *        	 | • 'defer'			->	true if the script is defer
 		 *        	 | • 'async'			->	true if the script is async
 		 * 		 	 | • 'integrity'		->	string that report verification of integrity of file
-		 *        	 | • 'crossorigin'		->	sting that report origin of script
-		 *        	 | • 'referrerpolicy'	->	sting that report origin of script
+		 *        	 | • 'crossorigin'		->	string that report origin of script
+		 *        	 | • 'referrerpolicy'	->	string that report referrerpolicy of script
 		 *        
 		 *        
 		 *          --------------
