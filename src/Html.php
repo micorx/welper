@@ -167,6 +167,7 @@ class Html
 		 *        	 | • 'uri-type'			-->	'rel'										->	uri is a relative resource
 		 *        	 |						|->	'abs' [default - if not defined]			->	uri is an absolute link
 		 *           |
+		 *        	 | • 'type'				->	string that report type of script
 		 *        	 | • 'defer'			->	true if the script is defer
 		 *        	 | • 'async'			->	true if the script is async
 		 * 		 	 | • 'integrity'		->	string that report verification of integrity of file

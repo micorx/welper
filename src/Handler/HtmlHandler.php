@@ -413,6 +413,9 @@ class HtmlHandler
 					$script = array(
 						'uri' => $resource['uri']
 					);
+					if (isset($element['type']) && is_string($element['type'])) {
+						$script['type'] = $element['type'];
+					}
 					if (isset($element['defer']) && $element['defer'] === true) {
 						$script['defer'] = $element['defer'];
 					}
@@ -720,6 +723,9 @@ class HtmlHandler
 			foreach ($value as $element) {
 				if (isset($element['uri']) && $element['uri'] !== '') {
 					$data = '';
+					if (isset($element['type']) && is_string($element['type'])) {
+						$data .= ' type="' . $element['type'] . '"';
+					}
 					if (isset($element['defer']) && $element['defer'] === true) {
 						$data .= ' defer';
 					}
